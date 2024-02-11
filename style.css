@@ -6,17 +6,38 @@
   box-sizing: border-box;
 }
 
-/* 共通 */
-h1,
+
+@font-face {
+  font-family: "myfont-NotoSan-r";
+  src: url(./font/noto-sans-jp/NotoSansJP-Regular.otf) format("opentype");  
+}
+
+@font-face {
+  font-family: "myfont-josefin";
+  src: url(./font/josefin-sans/JosefinSans-Bold.ttf) format("opentype");  
+}
+
 h3,
 h2,
 p,
-a {
-  font-family: 'Hina Mincho', serif;
-  font-family: 'Klee One', cursive;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-family: 'Noto Serif JP', serif;
-  font-family: 'Public Sans', sans-serif;
+a,
+.sub_title,
+.text_box h1,
+.contact h1{
+  font-family: "myfont-NotoSan-r",sans-serif;
+  color: #4A4A4A;
+
+}
+
+p,
+h3{
+  line-height: 2.5rem;
+}
+
+
+.title{
+  font-family: "myfont-josefin" ,serif;
+  color: #4A4A4A;
 }
 
 p {
@@ -27,8 +48,13 @@ a {
   text-decoration: none;
 }
 
-section {
+#about,
+#course {
   padding: 100px 0;
+}
+
+#location{
+  padding-bottom: 100px;
 }
 
 li {
@@ -56,7 +82,7 @@ header {
 .loading {
   width: 100vw;
   height: 100vh;
-  transition: all 2.0s;
+  transition: all 1.5s;
   background: rgb(56, 89, 170);
   position: fixed;
   top: 0;
@@ -177,7 +203,7 @@ nav ul {
   padding: 100px 50px;
 }
 
-nav ul li {
+.li-hover{
   list-style-type: none;
   margin: 10vh 0;
 }
@@ -187,10 +213,27 @@ nav ul li a {
   transition: color 1s;
 }
 
-nav ul li a:hover {
-  color: #DEFF45;
+.li-hover{
+  position: relative;
+  /* display: inline-block; */
 }
 
+.li-hover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px; /* 線の太さを調整する場合はここの値を変更 */
+  background-color: white; /* 白色の線を描画 */
+  transform: scaleX(0); /* 初期状態では横幅0にする */
+  transform-origin: left;
+  transition: transform 0.3s ease; /* 変化をスムーズにする */
+}
+
+nav ul li:hover::after {
+  transform: scaleX(1); /* HOVER時に横幅を100%にする */
+}
 
 /* nav active */
 
@@ -293,7 +336,7 @@ nav ul li a:hover {
 }
 
 .text_box {
-  padding: 20vh 8vw 20vh 2vw;
+  padding: 15vh 11vw 15vh 7vw;
 }
 
 .text_box h1 {
@@ -321,6 +364,7 @@ nav ul li a:hover {
   display: block;
   margin: 30px auto;
   font-size: 2.5rem;
+  font-family: "myfont-josefin" ,serif;
 }
 
 .support_area h3 {
@@ -394,22 +438,12 @@ nav ul li a:hover {
 
 
 .design_area {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 100px;
+  margin: 100px 5%;
 }
 
 .design {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  align-items: center;
-  width: 70%;
-}
-
-.d-box,
-.img {
-  width: 40%;
+  width: 100%;
 }
 
 .d-box h3 {
@@ -418,103 +452,142 @@ nav ul li a:hover {
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: bold;
   line-height: 0.9;
-  margin-bottom: 20px;
+  padding-left: 5%;
+  color: #ababab;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+
+.title-w{
+  text-align: end;
+  padding-right: 5%;
 }
 
 .sub_title {
-  background: linear-gradient(transparent 70%, #DEFF45 60%);
   font-size: 2rem;
+  border-bottom: solid 1px #4A4A4A;
+  padding:30px 0;
 }
 
 .d-box p {
   text-align: justify;
-  padding: 20px 0;
+  padding: 30px 0;
+  line-height: 2.5rem;
 }
-
-.content-box {
-  display: flex;
-  flex-wrap: wrap;
-  padding-bottom: 30px;
-}
-
-.content-box ul {
-  column-count: 2;
-}
-
-
-.content-box li {
-  width: 160px;
-  text-align: center;
-  border: 1px solid #000;
-  border-radius: 3px;
-  margin: 10px 5px;
-  background: #DEFF45;
-  display: inline-block;
-}
-
 
 .more {
   display: flex;
   justify-content: center;
+  align-items: center;
   transition: background-color 1s;
-  margin: 0 50px;
-  padding: 5px 10px;
+  margin: 0 auto;
+  padding: 20px 0px;
   font-weight: bold;
-  border-bottom: 2px solid rgb(56, 89, 170);
-
-  /* 「詳しくはこちら」の背景点滅 */
-  animation-name: flashing;
-  animation-duration: 2.6s;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  border-radius: 50px 50px 50px 50px;
+  background: #4A4A4A;
+  color: #fff;
+  width: 20vw;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
-@keyframes flashing {
-  0% {
-    background-color: #a0d8ef;
-  }
-
-  50% {
-    background-color: #0095d9;
-  }
-
-  100% {
-    background-color: #a0d8ef;
-  }
+.more::after{
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  width: 100%;
+  height: 100%;
+  transform: scale(0, 1);
+  transform-origin: left top;
+  transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+  z-index: -1;
 }
 
-/* 
-.d-box a:hover {
-  background-color: #DEFF45;
-} */
+.more:hover{
+  color: #4A4A4A;
+  border: solid 1px #4A4A4A;
+}
+
+.more:hover::after{
+  transform: scale(1, 1);
+}
+
+.d-box {
+  padding: 40px 60px;
+}
 
 
-
-.img-common {
-  border-radius: 200px 200px 200px 200px / 180px 180px 180px 180px;
-  width: 350px;
-  height: 550px;
+.img_f,
+.img_p,
+.img_d,
+.d-box  {
+  width: 50%;
 }
 
 .img_f {
   background: url(./img/course_frontend.jpg);
   background-size: cover;
+  margin-left: 60px;
+  position: relative;
 }
 
 .img_p {
   background: url(./img/course_pc.jpg);
   background-size: cover;
+  margin-right: 60px;
+  position: relative;
 }
 
 .img_d {
   background: url(./img/course_web.jpg);
   background-size: cover;
+  margin-left: 60px;
+  position: relative;
 }
+
+.kazari-box{
+  width: 200px;
+  height: 100px;
+  background: #ababab;
+  position: absolute;
+  top: 376px;
+  right: -66px;
+  opacity: .5;
+}
+
+.kazari-box2{
+  width: 200px;
+  height: 100px;
+  background: #ababab;
+  position: absolute;
+  top: 376px;
+  left: -66px;
+  opacity: .3;
+}
+
+/* .fadeUp クラスにフェードインのアニメーションを適用 */
+.fadeUp {
+  animation:fadeIn 1s ease-in;
+}
+
+/* フェードインのアニメーションを定義 */
+@keyframes fadeIn {
+  from {
+  opacity: 0;
+  transform: translateX(-100px);
+  }
+
+  to {
+  opacity: 1;
+  transform: translateX(0);
+  }
+}
+
 
 
 .jump {
@@ -540,31 +613,29 @@ nav ul li a:hover {
 .link a {
   width: 300px;
   padding: 10px;
-  background-color: rgb(56, 89, 170);
-  color: #fff;
-  border-radius: 3px;
+  /* background-color: rgb(56, 89, 170); */
+  color: #4A4A4A;
   text-align: center;
   transition: background-color 1s;
   transition: color 1s;
+  border: solid 1px #4A4A4A;
 }
 
 .link a:hover {
-  background-color: rgba(4, 202, 255, 1);
+  background-color: #fff;
+  color: #4A4A4A;
 }
 
 /* locaton */
 /* Google Mapを囲う要素 */
 .map-wrap {
-  max-width: 50%;
+  max-width: 100%;
   margin: 0 auto;
 }
 
 .map {
   position: relative;
-  width: 100%;
-  height: 0;
-  padding-top: 75%;
-  /* 比率を4:3に固定 */
+  padding-top: 440px;
 }
 
 /* Google Mapのiframe */
@@ -598,18 +669,13 @@ nav ul li a:hover {
   align-items: center;
 }
 
-.gazo a {
-  margin-top: 20px;
-  transition: background-color 1s;
-  padding: 0 20px;
-}
-
-.gazo a:hover {
-  background-color: #DEFF45;
-}
-
 .bunner {
   width: 300px;
+}
+
+.qr-set{
+  display: flex;
+  margin-top: 30px;
 }
 
 .pagetop {
@@ -755,6 +821,7 @@ small {
     font-size: 1rem;
   }
 
+  /*学科紹介  */
   #course {
     margin: 0 auto;
     text-align: center;
@@ -765,7 +832,6 @@ small {
     width: 60%;
     margin: 0 auto 10px;
   }
-
 
 
   .content-box ul {
@@ -780,16 +846,20 @@ small {
 
   .design {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 
   .design_area {
     margin-bottom: 30px;
   }
 
+  .d-box{
+    padding: 0;
+  }
+
   .reverse {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
 
@@ -803,14 +873,25 @@ small {
     justify-content: center;
   }
 
-
-
+.title {
+  font-size: 4rem;
+  font-weight: bold;
+  line-height: 0.9;
+  padding-left: 0;
+  color: #ababab;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+  text-align: center;
+}
 
   .sub_title {
-    background: linear-gradient(transparent 80%, #DEFF45 60%);
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
+  .kazari-box2,
+  .kazari-box{
+    opacity: 0;
+  }
 
   .link {
     display: flex;
@@ -822,9 +903,40 @@ small {
     margin-bottom: 5vh;
   }
 
+  .img_f,
+  .img_p,
+  .img_d,
+  .d-box  {
+    width: 100%;
+  }
+  
+  .img_f {
+    background: url(./img/course_frontend.jpg);
+    background-size: cover;
+    margin-left: 0;
+    position: relative;
+    height: 200px;
+  }
+  
+  .img_p {
+    background: url(./img/course_pc.jpg);
+    background-size: cover;
+    margin-right: 0;
+    position: relative;
+    height: 200px;
+  }
+  
+  .img_d {
+    background: url(./img/course_web.jpg);
+    background-size: cover;
+    margin-left: 0;
+    position: relative;
+    height: 200px;
+  }
+
   /* コースエリア */
   .title {
-    font-size: 2.2rem;
+    font-size: 3rem;
   }
 
 
@@ -837,6 +949,7 @@ small {
 
   .d-box {
     width: 80%;
+    margin: 0 auto;
   }
 
   .gazo {
@@ -844,11 +957,31 @@ small {
     margin: 0 auto;
   }
 
-  .gazo img,
-  .bunner {
+  .gazo img {
+    width: 120%;
+  }
+
+  .qr-set img {
     width: 100%;
   }
 
+
+  .qr-set{
+    display:flex;
+    flex-direction: column;
+  }
+
+  .more {
+    display: inline;
+    justify-content: center;
+    transition: background-color 1s;
+    /* margin: 0 0px; */
+    padding: 20px 10px;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(56, 89, 170);
+    width: 100%;
+    margin-top: 20px;
+}
 
   .footer {
     display: flex;
